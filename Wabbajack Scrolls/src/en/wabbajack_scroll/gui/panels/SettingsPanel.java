@@ -82,7 +82,12 @@ public class SettingsPanel extends JPanel implements ActionListener{
 	}
 	
 	public static void init() {
-		pathToWabbajack.setText(Settings.ini.get("Main","WabbajackPath", String.class));
+	    try{
+            pathToWabbajack.setText((String)Settings.ini.get("Main","WabbajackPath"));
+        } catch (NullPointerException e) {
+	        pathToWabbajack.setText("");
+        }
+
 		jLblSettingsSaved.setText("");
 	}
 

@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import en.wabbajack_scroll.util.CMD;
 import en.wabbajack_scroll.util.Settings;
 
 @SuppressWarnings("serial")
@@ -180,11 +181,20 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         selectOutput.addActionListener(this);
         selectModlist.addActionListener(this);
         selectMods.addActionListener(this);
+        executeButton.addActionListener(this);
         
 	}
 	
 	public static void init() {
-		pathToDownloads.setText(Settings.ini.get("ManageDownloads","DownloadsPath", String.class));
+	    try {
+            pathToDownloads.setText((String)Settings.ini.get("ManageDownloads","DownloadsPath"));
+            pathToOutput.setText((String)Settings.ini.get("ManageDownloads","OutputPath"));
+            pathToModlist.setText((String)Settings.ini.get("ManageDownloads","ModlistPath"));
+            pathToMods.setText((String)Settings.ini.get("ManageDownloads","ModsPath"));
+        } catch (NullPointerException e){
+
+        }
+
 		
 	}
 	
@@ -238,12 +248,7 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
     			}
             }
         }
-		
-        if (e.getSource() == executeButton) {
 
-        }
-        
-        
         if (e.getSource() == selectMods) {
             int returnVal = fcdir.showDialog(this,"Select");
  
@@ -261,7 +266,44 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         }
 		
         if (e.getSource() == executeButton) {
+            StringBuffer command = new StringBuffer();
+            command.append("wabbajack-cli change-download");
+            if (!pathToDownloads.getText().isBlank()) {
+                command.append(" --input \"" + pathToDownloads.getText() + "\"");
+            } else {
+                pathToDownloads.setText("missing input");
+            }
 
+            if (!pathToOutput.getText().isBlank()) {
+                command.append(" --output \"" + pathToOutput.getText() + "\"");
+            } else {
+                pathToOutput.setText("missing input");
+            }
+
+            if (!pathToModlist.getText().isBlank()) {
+                command.append(" --modlist \"" + pathToModlist.getText() + "\"");
+            } else {
+                pathToModlist.setText("missing input");
+            }
+
+            if (new File((String)pathToModlist.getText()).getName().equals("modlist.txt") && pathToMods.getText().isBlank()){
+                command.append(" --mods \""+ pathToMods.getText() + "\"");
+            } else if (new File((String)pathToModlist.getText()).getName().equals("modlist.txt")) {
+                pathToMods.setText("missing input");
+            }
+
+            if (copyOrMove.getSelectedItem().toString().equals("move")) {
+                command.append(" --move");
+            }
+            if (overwriteExstingFiles.getSelectedItem().toString().equals("Do")) {
+                command.append(" --overwrite");
+            }
+
+            if (copyMeta.getSelectedItem().toString().equals("Do not")) {
+                command.append(" --meta");
+            }
+
+            CMD.run(command.toString());
         }
 	}
 }

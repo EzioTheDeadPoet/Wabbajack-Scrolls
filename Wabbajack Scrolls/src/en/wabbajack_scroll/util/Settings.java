@@ -11,7 +11,7 @@ public class Settings {
     private static String fileName = "settings.ini";
     public static File iniFile = new File(directoryName + "/" + fileName);
     public static Wini ini;
-    public static void SettingsInit() {
+    public static void Init() {
         try {
         	ini = new Wini(Settings.iniFile);
         } catch (IOException e){
