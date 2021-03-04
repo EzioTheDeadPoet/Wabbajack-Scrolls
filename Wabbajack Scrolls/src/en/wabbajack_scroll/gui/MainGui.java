@@ -1,8 +1,6 @@
 package en.wabbajack_scroll.gui;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,9 +27,8 @@ public class MainGui extends JFrame implements ActionListener {
 	private JMenu userOperations = new JMenu("Basic Operations");
 	
 	private JMenuItem createChangelog = new JMenuItem("Create Changelog");
-	private JMenuItem backup = new JMenuItem("Backup");
 	private JMenuItem manageDownloads = new JMenuItem("Manage Downloads");
-	private JMenuItem hashGameFiles = new JMenuItem("Hash Game Files");
+//	private JMenuItem hashGameFiles = new JMenuItem("Hash Game Files");
 	
 	private JMenu authorOperations = new JMenu("Author Operations");
 	
@@ -49,11 +46,10 @@ public class MainGui extends JFrame implements ActionListener {
 	private JPanel mainPanel = new JPanel(new CardLayout());
 	
 		
-	private StartPanel welcome = new StartPanel();
+//	private StartPanel welcome = new StartPanel();
 	
 	private CreateChangelogPanel createChangelogPanel = new CreateChangelogPanel();
-	private BackupPannel backupPanel = new BackupPannel();
-	private HashGameFilesPanel hashGameFilesPanel = new HashGameFilesPanel();
+//	private HashGameFilesPanel hashGameFilesPanel = new HashGameFilesPanel();
 	private ManageDownloadsPanel manageDownloadsPanel = new ManageDownloadsPanel();
 	
 	private ForceHealPanel forceHealPanel = new ForceHealPanel();
@@ -65,8 +61,6 @@ public class MainGui extends JFrame implements ActionListener {
 	private MainGui() {
 		
 		super("Wabbajack Scroll");
-		setSize(358, 265);
-		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -92,31 +86,19 @@ public class MainGui extends JFrame implements ActionListener {
 	
 	private void initMainGui() {
 		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		setSize((int)(screenSize.getWidth()*0.4), (int)(screenSize.getHeight()*0.4));
-
-		this.setLocation((int)(screenSize.getWidth()*0.3), (int)(screenSize.getHeight()*0.3));
-		
-		
-		
 		//Top Menu User Operations
+		
+		manageDownloads.setActionCommand("manageDownloads");
+		manageDownloads.addActionListener(this);
+		userOperations.add(manageDownloads);
 		
 		createChangelog.setActionCommand("createChangelog");
 		createChangelog.addActionListener(this);
 		userOperations.add(createChangelog);
 		
-		backup.setActionCommand("backup");
-		backup.addActionListener(this);
-		userOperations.add(backup);
-		
-		hashGameFiles.setActionCommand("hashGameFiles");
-		hashGameFiles.addActionListener(this);
-		userOperations.add(hashGameFiles);
-		
-		manageDownloads.setActionCommand("manageDownloads");
-		manageDownloads.addActionListener(this);
-		userOperations.add(manageDownloads);
+//		hashGameFiles.setActionCommand("hashGameFiles");
+//		hashGameFiles.addActionListener(this);
+//		userOperations.add(hashGameFiles);
 		
 		//Top Menu Author Operations
 		
@@ -148,12 +130,11 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		//Add cards to the mainPanel
 		
-		mainPanel.add("start", welcome);
+//		mainPanel.add("start", welcome);
 		
-		mainPanel.add("createChangelog", createChangelogPanel);
-		mainPanel.add("backup",backupPanel);
-		mainPanel.add("hashGameFiles", hashGameFilesPanel);
 		mainPanel.add("manageDownloads", manageDownloadsPanel);
+		mainPanel.add("createChangelog", createChangelogPanel);
+//		mainPanel.add("hashGameFiles", hashGameFilesPanel);
 		
 		mainPanel.add("forceHeal", forceHealPanel);
 		mainPanel.add("manageAuthoredFiles", manageAuthoredFilesPanel);
@@ -164,6 +145,13 @@ public class MainGui extends JFrame implements ActionListener {
 		//Building the Main Window
 		setJMenuBar(menubar);
 		getContentPane().add("Center",mainPanel);
+		
+		pack();
+		setLocationRelativeTo(null);
+
+		SettingsPanel.init();
+		ManageDownloadsPanel.init();
+
 		
 		if (Setup.initializeIni()) {
 			CardLayout mainLayout = (CardLayout)(mainPanel.getLayout());
@@ -176,6 +164,12 @@ public class MainGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 			CardLayout mainLayout = (CardLayout)(mainPanel.getLayout());
 			mainLayout.show(mainPanel, e.getActionCommand());
+			if (e.getSource() == settings) {
+				SettingsPanel.init();
+			}
+			if (e.getSource() == manageDownloads) {
+				ManageDownloadsPanel.init();
+			}
 			return;
 	}
 	

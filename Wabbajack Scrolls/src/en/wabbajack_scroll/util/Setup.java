@@ -22,18 +22,26 @@ public class Setup {
 	    }
 
 	    File file = new File(directoryName + "/" + fileName);
+
 	    if (!file.exists()) {
 		    try{
 		        FileWriter fw = new FileWriter(file.getAbsoluteFile());
 		        BufferedWriter bw = new BufferedWriter(fw);
 		        bw.write("");
 		        bw.close();
+		    	Settings.ini.put("Main", "WabbajackPath", "");
+		    	Settings.ini.store();
 		        return true;
 		    }
 		    catch (IOException e){
 		        e.printStackTrace();
 		        System.exit(-1);
 		    }
+	    }
+	    File wabbajackDirecrory = new File(Settings.ini.get("Main","WabbajackPath", String.class));
+	    if ((Settings.ini.get("Main","WabbajackPath", String.class).equals("") 
+	    	|| !wabbajackDirecrory.exists())){
+	    	return true;
 	    }
 	    return false;
 
