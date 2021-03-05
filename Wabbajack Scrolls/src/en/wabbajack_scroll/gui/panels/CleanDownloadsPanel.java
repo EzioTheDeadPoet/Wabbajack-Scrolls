@@ -5,9 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,18 +16,16 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import en.wabbajack_scroll.util.CMD;
 import en.wabbajack_scroll.util.Settings;
 
 @SuppressWarnings("serial")
-public class ManageDownloadsPanel extends JPanel implements ActionListener{
+public class CleanDownloadsPanel extends JPanel implements ActionListener{
 	
     private JLabel header;
     private JLabel jLblDownloads;
     private static JTextField pathToDownloads;
     private JButton selectDownloads;
-    private JLabel jLblOutput;
-    private static JTextField pathToOutput;
-    private JButton selectOutput;
     private JLabel jLblModlistFile;
     private static JTextField pathToModlist;
     private JButton selectModlist;
@@ -34,34 +33,19 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
     private static JTextField pathToMods;
     private JButton selectMods;
     private JLabel jLblModsNote;
-    private JComboBox<?> copyOrMove;
-    private JLabel jLblsettings;
-    private JLabel jLblMoveOrCopy;
-    private JComboBox<?> overwriteExstingFiles;
-    private JLabel jLblOverwrite;
-    private JComboBox<?> copyMeta;
-    private JLabel jLblMetafile;
     private JButton executeButton;
     
-    
+    //Code related
     public static JFileChooser fcdir;
     public static JFileChooser fcfile;
 	
-	public ManageDownloadsPanel() {
+	public CleanDownloadsPanel() {
 		
-        //construct preComponents
-        String[] copyOrMoveItems = {"Copy", "Move"};
-        String[] overwriteExstingFilesItems = {"Do not", "Do"};
-        String[] copyMetaItems = {"Do", "Do not"};
-
         //construct components
-        header = new JLabel ("Move or Copy all used Mods from a Modlist to another directory.");
+        header = new JLabel ("Clean your Downloads Folder from unused Downloads.");
         jLblDownloads = new JLabel ("Downloads Folder : ");
         pathToDownloads = new JTextField (5);
         selectDownloads = new JButton ("Select in Explorer");
-        jLblOutput = new JLabel ("Output Folder :");
-        pathToOutput = new JTextField (5);
-        selectOutput = new JButton ("Select in Expolrer");
         jLblModlistFile = new JLabel ("Modlist File :");
         pathToModlist = new JTextField (5);
         selectModlist = new JButton ("Select in Exploer");
@@ -69,22 +53,12 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         pathToMods = new JTextField (5);
         selectMods = new JButton ("Select in Exporer");
         jLblModsNote = new JLabel ("*Mods folder location is only needed if the provided modlist file is an MO2 modlist.txt");
-        copyOrMove = new JComboBox<Object> (copyOrMoveItems);
-        jLblsettings = new JLabel ("Settings :");
-        jLblMoveOrCopy = new JLabel (" the downloads of the modlist to the output folder.");
-        overwriteExstingFiles = new JComboBox<Object> (overwriteExstingFilesItems);
-        jLblOverwrite = new JLabel (" overwrite existing files in the output location.");
-        copyMeta = new JComboBox<Object> (copyMetaItems);
-        jLblMetafile = new JLabel (" copy the meta file with the download.");
         executeButton = new JButton ("Launch");
 
         //set components properties
         jLblDownloads.setToolTipText ("Input folder containing the downloads you want to move.");
         pathToDownloads.setToolTipText ("Input folder containing the downloads you want to move.");
         selectDownloads.setToolTipText ("Input folder containing the downloads you want to move.");
-        jLblOutput.setToolTipText ("Output folder the downloads should be transferred to");
-        pathToOutput.setToolTipText ("Output folder the downloads should be transferred to");
-        selectOutput.setToolTipText ("Output folder the downloads should be transferred to");
         jLblModlistFile.setToolTipText ("The Modlist, can either be a .wabbajack or a modlist.txt file.");
         pathToModlist.setToolTipText ("The Modlist, can either be a .wabbajack or a modlist.txt file.");
         selectModlist.setToolTipText ("The Modlist, can either be a .wabbajack or a modlist.txt file.");
@@ -101,9 +75,6 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         add (jLblDownloads);
         add (pathToDownloads);
         add (selectDownloads);
-        add (jLblOutput);
-        add (pathToOutput);
-        add (selectOutput);
         add (jLblModlistFile);
         add (pathToModlist);
         add (selectModlist);
@@ -111,13 +82,6 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         add (pathToMods);
         add (selectMods);
         add (jLblModsNote);
-        add (copyOrMove);
-        add (jLblsettings);
-        add (jLblMoveOrCopy);
-        add (overwriteExstingFiles);
-        add (jLblOverwrite);
-        add (copyMeta);
-        add (jLblMetafile);
         add (executeButton);
 
         //set component bounds (only needed by Absolute Positioning)
@@ -125,23 +89,13 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         jLblDownloads.setBounds (25, 110, 200, 25);
         pathToDownloads.setBounds (225, 110, 460, 25);
         selectDownloads.setBounds (685, 110, 180, 25);
-        jLblOutput.setBounds (25, 160, 200, 25);
-        pathToOutput.setBounds (225, 160, 460, 25);
-        selectOutput.setBounds (685, 160, 180, 25);
-        jLblModlistFile.setBounds (25, 210, 200, 25);
-        pathToModlist.setBounds (225, 210, 460, 25);
-        selectModlist.setBounds (685, 210, 180, 25);
-        jLblModsFolder.setBounds (25, 260, 200, 25);
-        pathToMods.setBounds (225, 260, 460, 25);
-        selectMods.setBounds (685, 260, 180, 25);
-        jLblModsNote.setBounds (225, 285, 640, 25);
-        copyOrMove.setBounds (225, 330, 100, 25);
-        jLblsettings.setBounds (25, 330, 200, 25);
-        jLblMoveOrCopy.setBounds (325, 330, 540, 25);
-        overwriteExstingFiles.setBounds (225, 365, 100, 25);
-        jLblOverwrite.setBounds (325, 365, 535, 25);
-        copyMeta.setBounds (225, 400, 100, 25);
-        jLblMetafile.setBounds (325, 400, 540, 25);
+        jLblModlistFile.setBounds (25, 160, 200, 25);
+        pathToModlist.setBounds (225, 160, 460, 25);
+        selectModlist.setBounds (685, 160, 180, 25);
+        jLblModsFolder.setBounds (25, 210, 200, 25);
+        pathToMods.setBounds (225, 210, 460, 25);
+        selectMods.setBounds (685, 210, 180, 25);
+        jLblModsNote.setBounds (225, 235, 640, 25);
         executeButton.setBounds (760, 540, 120, 60);
         
         
@@ -179,9 +133,9 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
 		
         
         selectDownloads.addActionListener(this);
-        selectOutput.addActionListener(this);
         selectModlist.addActionListener(this);
         selectMods.addActionListener(this);
+        executeButton.addActionListener(this);
         
 	}
 	
@@ -208,23 +162,7 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
     			}
             }
         }
-        
-        if (e.getSource() == selectOutput) {
-            int returnVal = fcdir.showDialog(this,"Select");
- 
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File path = fcdir.getSelectedFile();
-                pathToOutput.setText(path.getAbsolutePath());
-                Settings.ini.put("ManageDownloads", "OutputPath", pathToOutput.getText());
-                try {
-    				Settings.ini.store();
-
-    			} catch (IOException e1) {
-    				e1.printStackTrace();
-    			}
-            }
-        }
-        
+           
         if (e.getSource() == selectModlist) {
             int returnVal = fcfile.showDialog(this,"Select");
  
@@ -241,11 +179,7 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
             }
         }
 		
-        if (e.getSource() == executeButton) {
-
-        }
-        
-        
+    
         if (e.getSource() == selectMods) {
             int returnVal = fcdir.showDialog(this,"Select");
  
@@ -263,7 +197,29 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         }
 		
         if (e.getSource() == executeButton) {
+			String debugFront = "echo \"wabbajack-cli ";
+			String debugEnd = "\"";
+			
+			StringBuffer command = new StringBuffer();
+			command.append("change-donwloads");
+			
+			if (!pathToDownloads.getText().isEmpty()) {
+				command.append(" --input \""+ pathToDownloads.getText()+"\"");
+			}
 
-        }
+			Path tempDir = null;
+			try {
+				tempDir = Files.createTempDirectory("Wabbajack-Scrolls-CleanDownloads");
+			} catch (IOException e1) {
+	
+				e1.printStackTrace();
+			}
+			
+			command.append(" --output \""+ tempDir.toString() +"\"");
+			
+
+			
+			CMD.run(debugFront + command.toString() + debugEnd);
+		}
 	}
 }

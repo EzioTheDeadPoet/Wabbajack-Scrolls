@@ -26,8 +26,9 @@ public class MainGui extends JFrame implements ActionListener {
 	
 	private JMenu userOperations = new JMenu("Basic Operations");
 	
-	private JMenuItem createChangelog = new JMenuItem("Create Changelog");
 	private JMenuItem manageDownloads = new JMenuItem("Manage Downloads");
+	private JMenuItem cleanDownloads = new JMenuItem("Clean Downloads");
+	private JMenuItem createChangelog = new JMenuItem("Create Changelog");
 //	private JMenuItem hashGameFiles = new JMenuItem("Hash Game Files");
 	
 	private JMenu authorOperations = new JMenu("Author Operations");
@@ -48,9 +49,10 @@ public class MainGui extends JFrame implements ActionListener {
 		
 //	private StartPanel welcome = new StartPanel();
 	
+	private ManageDownloadsPanel manageDownloadsPanel = new ManageDownloadsPanel();
+	private CleanDownloadsPanel cleanDownloadsPanel = new CleanDownloadsPanel();
 	private CreateChangelogPanel createChangelogPanel = new CreateChangelogPanel();
 //	private HashGameFilesPanel hashGameFilesPanel = new HashGameFilesPanel();
-	private ManageDownloadsPanel manageDownloadsPanel = new ManageDownloadsPanel();
 	
 	private ForceHealPanel forceHealPanel = new ForceHealPanel();
 	private ManageAuthoredFilesPanel manageAuthoredFilesPanel = new ManageAuthoredFilesPanel();
@@ -60,7 +62,7 @@ public class MainGui extends JFrame implements ActionListener {
 	
 	private MainGui() {
 		
-		super("Wabbajack Scroll");
+		super("Wabbajack Scrolls: Easy Access to The Wabbajack-CLI");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -91,6 +93,10 @@ public class MainGui extends JFrame implements ActionListener {
 		manageDownloads.setActionCommand("manageDownloads");
 		manageDownloads.addActionListener(this);
 		userOperations.add(manageDownloads);
+		
+		cleanDownloads.setActionCommand("cleanDownloads");
+		cleanDownloads.addActionListener(this);
+		userOperations.add(cleanDownloads);
 		
 		createChangelog.setActionCommand("createChangelog");
 		createChangelog.addActionListener(this);
@@ -133,7 +139,9 @@ public class MainGui extends JFrame implements ActionListener {
 //		mainPanel.add("start", welcome);
 		
 		mainPanel.add("manageDownloads", manageDownloadsPanel);
+		mainPanel.add("cleanDownloads", cleanDownloadsPanel);
 		mainPanel.add("createChangelog", createChangelogPanel);
+
 //		mainPanel.add("hashGameFiles", hashGameFilesPanel);
 		
 		mainPanel.add("forceHeal", forceHealPanel);
@@ -151,6 +159,7 @@ public class MainGui extends JFrame implements ActionListener {
 
 		SettingsPanel.init();
 		ManageDownloadsPanel.init();
+		CreateChangelogPanel.init();
 
 		
 		if (Setup.initializeIni()) {
@@ -165,6 +174,7 @@ public class MainGui extends JFrame implements ActionListener {
 			CardLayout mainLayout = (CardLayout)(mainPanel.getLayout());
 			mainLayout.show(mainPanel, e.getActionCommand());
 			if (e.getSource() == settings) {
+				Settings.jCBTheme.setSelectedItem(Settings.ini.get("Main","Theme", String.class));
 				SettingsPanel.init();
 			}
 			if (e.getSource() == manageDownloads) {
@@ -172,6 +182,5 @@ public class MainGui extends JFrame implements ActionListener {
 			}
 			return;
 	}
-	
 
 }
