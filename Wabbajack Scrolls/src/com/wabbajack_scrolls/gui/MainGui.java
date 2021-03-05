@@ -1,18 +1,18 @@
-package en.wabbajack_scroll.gui;
+package com.wabbajack_scrolls.gui;
 
-import java.awt.CardLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-import en.wabbajack_scroll.*;
-import en.wabbajack_scroll.gui.panels.*;
-import en.wabbajack_scroll.util.*;
+import com.wabbajack_scrolls.GUI;
+import com.wabbajack_scrolls.gui.panels.*;
+import com.wabbajack_scrolls.util.ApiKey;
+import com.wabbajack_scrolls.util.Settings;
+import com.wabbajack_scrolls.util.Setup;
 
 
 @SuppressWarnings("serial")
@@ -65,8 +65,13 @@ public class MainGui extends JFrame implements ActionListener {
 		super("Wabbajack Scrolls: Easy Access to The Wabbajack-CLI");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		initMainGui();		
+
+		List<Image> icons  = new ArrayList<>();
+		icons.add(new ImageIcon(getClass().getResource("/com/wabbajack_scrolls/resources/wabbajack.png")).getImage());
+
+		this.setIconImages(icons);
+
+		initMainGui();
 	}
 	
 	
@@ -174,7 +179,7 @@ public class MainGui extends JFrame implements ActionListener {
 			CardLayout mainLayout = (CardLayout)(mainPanel.getLayout());
 			mainLayout.show(mainPanel, e.getActionCommand());
 			if (e.getSource() == settings) {
-				Settings.jCBTheme.setSelectedItem(Settings.ini.get("Main","Theme", String.class));
+				SettingsPanel.jCBTheme.setSelectedItem(Settings.ini.get("Main","Theme", String.class));
 				SettingsPanel.init();
 			}
 			if (e.getSource() == manageDownloads) {

@@ -1,4 +1,4 @@
-package en.wabbajack_scroll.gui.panels;
+package com.wabbajack_scrolls.gui.panels;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -16,14 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import en.wabbajack_scroll.GUI;
-import en.wabbajack_scroll.util.Settings;
-import mdlaf.MaterialLookAndFeel;
-import mdlaf.themes.JMarsDarkTheme;
-import mdlaf.themes.MaterialLiteTheme;
-import mdlaf.themes.MaterialOceanicTheme;
+import com.wabbajack_scrolls.util.Settings;
+import com.wabbajack_scrolls.GUI;
+import com.wabbajack_scrolls.util.ThemeSetter;
 
-@SuppressWarnings("serial")
 public class SettingsPanel extends JPanel implements ActionListener,ItemListener{
 	
     private JLabel header;
@@ -33,7 +29,7 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
     private JButton selectWabbajack;
     private JButton saveSettings;
     private JLabel jLblTheme;
-    private static JComboBox<?> jCBTheme;
+    public static JComboBox<?> jCBTheme;
     
     //Code related
 	public static JFileChooser fc;
@@ -103,7 +99,7 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
 	
 	public static void init() {
 	    try{
-            pathToWabbajack.setText((String)Settings.ini.get("Main","WabbajackPath"));
+            pathToWabbajack.setText((String) Settings.ini.get("Main","WabbajackPath"));
         } catch (NullPointerException e) {
 	        pathToWabbajack.setText("");
         }
@@ -147,18 +143,7 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
 	    	Settings.ini.put("Main", "Theme", (String)jCBTheme.getSelectedItem());
 		    try {
 		    	Settings.ini.store();
-		    	if (Settings.ini.get("Main","Theme", String.class).equals("MaterialOceanicTheme")) {
-	    			UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialOceanicTheme()));
-	    		}
-	    		if (Settings.ini.get("Main","Theme", String.class).equals("MaterialLiteTheme")) {
-	    			UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialLiteTheme()));
-	    		}
-	    		if (Settings.ini.get("Main","Theme", String.class).equals("JMarsDarkTheme")) {
-	    			UIManager.setLookAndFeel(new MaterialLookAndFeel(new JMarsDarkTheme()));
-	    		}
-	    		if (Settings.ini.get("Main","Theme", String.class).equals("System")) {
-	    			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	    		}
+                ThemeSetter.set();
 	        	GUI.restart();
 		    } catch (Exception ex) {
 		    	try {

@@ -1,5 +1,5 @@
 
-package en.wabbajack_scroll.util;
+package com.wabbajack_scrolls.util;
 
 public class CMD {
     public static void run(String command)
