@@ -22,43 +22,43 @@ public class MainGui extends JFrame implements ActionListener {
 	
 	//Initializing Menu
 	
-	private JMenuBar menubar = new JMenuBar();
+	private final JMenuBar menubar = new JMenuBar();
 	
-	private JMenu userOperations = new JMenu("Basic Operations");
+	private final JMenu userOperations = new JMenu("Basic Operations");
 	
-	private JMenuItem manageDownloads = new JMenuItem("Manage Downloads");
-	private JMenuItem cleanDownloads = new JMenuItem("Clean Downloads");
-	private JMenuItem createChangelog = new JMenuItem("Create Changelog");
+	private final JMenuItem manageDownloads = new JMenuItem("Manage Downloads");
+	private final JMenuItem cleanDownloads = new JMenuItem("Clean Downloads");
+	private final JMenuItem createChangelog = new JMenuItem("Create Changelog");
 //	private JMenuItem hashGameFiles = new JMenuItem("Hash Game Files");
 	
-	private JMenu authorOperations = new JMenu("Author Operations");
+	private final JMenu authorOperations = new JMenu("Author Operations");
 	
-	private JMenuItem forceHeal = new JMenuItem("Force Heal");
-	private JMenuItem manageAuthoredFiles = new JMenuItem("Manage Authored Files");
-	private JMenuItem purgeArchive = new JMenuItem("Purge Archive");
+	private final JMenuItem forceHeal = new JMenuItem("Force Heal");
+	private final JMenuItem manageAuthoredFiles = new JMenuItem("Manage Authored Files");
+	private final JMenuItem purgeArchive = new JMenuItem("Purge Archive");
 	
 	
-	private JMenu settingsMenu = new JMenu("Settings");
+	private final JMenu settingsMenu = new JMenu("Settings");
 	
-	private JMenuItem settings = new JMenuItem("Settings");
+	private final JMenuItem settings = new JMenuItem("Settings");
 	
 	//Initializing all used Panels
 	
-	private JPanel mainPanel = new JPanel(new CardLayout());
+	private final JPanel mainPanel = new JPanel(new CardLayout());
 	
 		
 //	private StartPanel welcome = new StartPanel();
 	
-	private ManageDownloadsPanel manageDownloadsPanel = new ManageDownloadsPanel();
-	private CleanDownloadsPanel cleanDownloadsPanel = new CleanDownloadsPanel();
-	private CreateChangelogPanel createChangelogPanel = new CreateChangelogPanel();
+	private final ManageDownloadsPanel manageDownloadsPanel = new ManageDownloadsPanel();
+	private final CleanDownloadsPanel cleanDownloadsPanel = new CleanDownloadsPanel();
+	private final CreateChangelogPanel createChangelogPanel = new CreateChangelogPanel();
 //	private HashGameFilesPanel hashGameFilesPanel = new HashGameFilesPanel();
 	
-	private ForceHealPanel forceHealPanel = new ForceHealPanel();
-	private ManageAuthoredFilesPanel manageAuthoredFilesPanel = new ManageAuthoredFilesPanel();
-	private PurgeArchivePanel purgeArchivePanel = new PurgeArchivePanel();
+	private final ForceHealPanel forceHealPanel = new ForceHealPanel();
+	private final ManageAuthoredFilesPanel manageAuthoredFilesPanel = new ManageAuthoredFilesPanel();
+	private final PurgeArchivePanel purgeArchivePanel = new PurgeArchivePanel();
 	
-	private SettingsPanel settingsPanel = new SettingsPanel();
+	private final SettingsPanel settingsPanel = new SettingsPanel();
 	
 	private MainGui() {
 		

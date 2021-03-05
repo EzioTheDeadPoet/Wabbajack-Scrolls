@@ -17,24 +17,24 @@ import com.wabbajack_scrolls.util.Settings;
 public class CreateChangelogPanel extends JPanel implements ActionListener{
 	
 	//UI related
-    private JLabel header;
-    private JLabel jLblPrevML;
+    private final JLabel header;
+    private final JLabel jLblPrevML;
     private static JTextField pathToOriginalModlist;
-    private JButton selecPrevious;
-    private JLabel jLblCurML;
+    private final JButton selecPrevious;
+    private final JLabel jLblCurML;
     private static JTextField pathToCurrent;
-    private JButton selectCurrent;
-    private JLabel jLblOutputFile;
+    private final JButton selectCurrent;
+    private final JLabel jLblOutputFile;
     private static JTextField pathToOutput;
-    private JButton selectOutput;
-    private JComboBox<?> changesDownloads;
-    private JLabel jLblsettings;
-    private JLabel jLblDownloads;
-    private JComboBox<?> changesMods;
-    private JLabel jLblMods;
-    private JComboBox<?> changesLoadorder;
-    private JLabel jLblLO;
-    private JButton executeButton;
+    private final JButton selectOutput;
+    private final JComboBox<?> changesDownloads;
+    private final JLabel jLblsettings;
+    private final JLabel jLblDownloads;
+    private final JComboBox<?> changesMods;
+    private final JLabel jLblMods;
+    private final JComboBox<?> changesLoadorder;
+    private final JLabel jLblLO;
+    private final JButton executeButton;
     
     
     //Code related
@@ -143,13 +143,13 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
 
 	public static void init() {
 		try {
-			prevPath = (String) Settings.ini.get("CreateChangelog", "PreviousModlist");
+			prevPath = Settings.ini.get("CreateChangelog", "PreviousModlist");
 			pathToOriginalModlist.setText(prevPath);
 			
-			currPath = (String)Settings.ini.get("CreateChangelog", "CurrentModlist");
+			currPath = Settings.ini.get("CreateChangelog", "CurrentModlist");
 			pathToCurrent.setText(currPath);
 			
-			outPath = (String)Settings.ini.get("CreateChangelog", "OutputPath");
+			outPath = Settings.ini.get("CreateChangelog", "OutputPath");
 			pathToOutput.setText(outPath);
 		} catch (NullPointerException e) {
 			

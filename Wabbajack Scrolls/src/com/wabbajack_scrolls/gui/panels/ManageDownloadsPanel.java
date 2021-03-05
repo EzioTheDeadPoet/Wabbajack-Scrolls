@@ -21,28 +21,28 @@ import com.wabbajack_scrolls.util.Settings;
 @SuppressWarnings("serial")
 public class ManageDownloadsPanel extends JPanel implements ActionListener{
 	
-    private JLabel header;
-    private JLabel jLblDownloads;
+    private final JLabel header;
+    private final JLabel jLblDownloads;
     private static JTextField pathToDownloads;
-    private JButton selectDownloads;
-    private JLabel jLblOutput;
+    private final JButton selectDownloads;
+    private final JLabel jLblOutput;
     private static JTextField pathToOutput;
-    private JButton selectOutput;
-    private JLabel jLblModlistFile;
+    private final JButton selectOutput;
+    private final JLabel jLblModlistFile;
     private static JTextField pathToModlist;
-    private JButton selectModlist;
-    private JLabel jLblModsFolder;
+    private final JButton selectModlist;
+    private final JLabel jLblModsFolder;
     private static JTextField pathToMods;
-    private JButton selectMods;
-    private JLabel jLblModsNote;
-    private JComboBox<?> copyOrMove;
-    private JLabel jLblsettings;
-    private JLabel jLblMoveOrCopy;
-    private JComboBox<?> overwriteExstingFiles;
-    private JLabel jLblOverwrite;
-    private JComboBox<?> copyMeta;
-    private JLabel jLblMetafile;
-    private JButton executeButton;
+    private final JButton selectMods;
+    private final JLabel jLblModsNote;
+    private final JComboBox<?> copyOrMove;
+    private final JLabel jLblsettings;
+    private final JLabel jLblMoveOrCopy;
+    private final JComboBox<?> overwriteExstingFiles;
+    private final JLabel jLblOverwrite;
+    private final JComboBox<?> copyMeta;
+    private final JLabel jLblMetafile;
+    private final JButton executeButton;
     
     
     public static JFileChooser fcdir;
@@ -168,11 +168,8 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
 			
 			@Override
 			public boolean accept(File f) {
-				if (f.getName().equals("modlist.txt")||f.isDirectory()) {
-					return true;
-				}
-				return false;
-			}
+                return f.getName().equals("modlist.txt") || f.isDirectory();
+            }
 		};
 		
 		fcfile.addChoosableFileFilter(wabbajackModlist);
@@ -189,10 +186,10 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
 	
 	public static void init() {
 	    try {
-            pathToDownloads.setText((String)Settings.ini.get("ManageDownloads","DownloadsPath"));
-            pathToOutput.setText((String)Settings.ini.get("ManageDownloads","OutputPath"));
-            pathToModlist.setText((String)Settings.ini.get("ManageDownloads","ModlistPath"));
-            pathToMods.setText((String)Settings.ini.get("ManageDownloads","ModsPath"));
+            pathToDownloads.setText(Settings.ini.get("ManageDownloads","DownloadsPath"));
+            pathToOutput.setText(Settings.ini.get("ManageDownloads","OutputPath"));
+            pathToModlist.setText(Settings.ini.get("ManageDownloads","ModlistPath"));
+            pathToMods.setText(Settings.ini.get("ManageDownloads","ModsPath"));
         } catch (NullPointerException e){
 
         }
@@ -288,9 +285,9 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
                 pathToModlist.setText("missing input");
             }
 
-            if (new File((String)pathToModlist.getText()).getName().equals("modlist.txt") && pathToMods.getText().isBlank()){
+            if (new File(pathToModlist.getText()).getName().equals("modlist.txt") && pathToMods.getText().isBlank()){
                 command.append(" --mods \""+ pathToMods.getText() + "\"");
-            } else if (new File((String)pathToModlist.getText()).getName().equals("modlist.txt")) {
+            } else if (new File(pathToModlist.getText()).getName().equals("modlist.txt")) {
                 pathToMods.setText("missing input");
             }
 

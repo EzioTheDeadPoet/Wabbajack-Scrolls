@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class HashGameFilesPanel extends JPanel {
 	
-	private JLabel startMesssage = new JLabel("Hash Game Files panel.");
+	private final JLabel startMesssage = new JLabel("Hash Game Files panel.");
 	
 	public HashGameFilesPanel() {
 		add(startMesssage);
