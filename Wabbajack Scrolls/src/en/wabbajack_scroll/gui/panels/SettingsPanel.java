@@ -102,8 +102,11 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
 	}
 	
 	public static void init() {
-		pathToWabbajack.setText(Settings.ini.get("Main","WabbajackPath", String.class));
-		//jCBTheme.setSelectedItem(Settings.ini.get("Main","Theme", String.class));
+	    try{
+            pathToWabbajack.setText((String)Settings.ini.get("Main","WabbajackPath"));
+        } catch (NullPointerException e) {
+	        pathToWabbajack.setText("");
+        }
 		jLblSettingsSaved.setText("");
 	}
 

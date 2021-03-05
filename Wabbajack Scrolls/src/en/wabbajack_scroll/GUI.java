@@ -12,6 +12,7 @@ import mdlaf.themes.*;
 public class GUI {
 	private static MainGui mainGui;
 	public static void main(String[] args) {
+
 		Settings.SettingsInit();
 	    try {
 	    	if (Settings.ini.get("Main","Theme", String.class).equals("MaterialOceanicTheme")) {

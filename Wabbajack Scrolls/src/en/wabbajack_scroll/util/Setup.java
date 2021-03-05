@@ -29,20 +29,29 @@ public class Setup {
 		        BufferedWriter bw = new BufferedWriter(fw);
 		        bw.write("");
 		        bw.close();
+				Settings.Init();
 		    	Settings.ini.put("Main", "WabbajackPath", "");
 		    	Settings.ini.store();
-		        return true;
 		    }
 		    catch (IOException e){
 		        e.printStackTrace();
 		        System.exit(-1);
 		    }
 	    }
-	    File wabbajackDirecrory = new File(Settings.ini.get("Main","WabbajackPath", String.class));
-	    if ((Settings.ini.get("Main","WabbajackPath", String.class).equals("") 
-	    	|| !wabbajackDirecrory.exists())){
-	    	return true;
-	    }
+		if (file.exists()){
+			try{
+				Settings.Init();
+				File testPath = new File((String)Settings.ini.get("Main", "WabbajackPath", String.class));
+				if ((Settings.ini.get("Main", "WabbajackPath", String.class)).equals("") || !testPath.exists()) {
+					return true;
+				}
+
+			} catch (NullPointerException e){
+
+			}
+		}
+
+
 	    return false;
 
 	}
