@@ -149,15 +149,12 @@ public class MainGui extends JFrame implements ActionListener {
 		pack();
 		setLocationRelativeTo(null);
 
-		SettingsPanel.init();
-		ManageDownloadsPanel.init();
-
-		
 		if (Setup.initializeIni()) {
 			CardLayout mainLayout = (CardLayout)(mainPanel.getLayout());
 			mainLayout.show(mainPanel, "settings");
 		}
-		
+		SettingsPanel.init();
+		ManageDownloadsPanel.init();
 	}
 	
 	//Switches to the selected card 
