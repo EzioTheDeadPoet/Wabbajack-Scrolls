@@ -133,7 +133,15 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
 		fcfile.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		fcfile.setAcceptAllFileFilterUsed(false);
 		fcfile.addChoosableFileFilter(wabbajackModlist);
-		
+
+        try {
+            fcclog.setCurrentDirectory(new File(((String)Settings.ini.get("Main","WabbajackPath"))).getParentFile());
+        } catch (Exception e) {
+        }
+        try {
+            fcfile.setCurrentDirectory(new File(((String)Settings.ini.get("Main","WabbajackPath"))).getParentFile());
+        } catch (Exception e) {
+        }
 		
 		selecPrevious.addActionListener(this);
 		selectCurrent.addActionListener(this);
@@ -236,16 +244,34 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
 		if (e.getSource() == executeButton) {
 
 			StringBuffer command = new StringBuffer();
-			command.append("changelog");
+			command.append("wabbajack-cli changelog");
 			
 			if (!pathToOriginalModlist.getText().isBlank()) {
+                Settings.ini.put("CreateChangelog", "PreviousModlist", pathToOriginalModlist.getText());
+                try {
+                    Settings.ini.store();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
 				command.append(" --original \""+ pathToOriginalModlist.getText()+"\"");
 			}
 			if (!pathToCurrent.getText().isBlank()) {
+                Settings.ini.put("CreateChangelog", "CurrentModlist", pathToCurrent.getText());
+                try {
+                    Settings.ini.store();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
 				command.append(" --update \""+ pathToCurrent.getText()+"\"");
 			}
 			
 			if (!pathToOutput.getText().isBlank()) {
+                Settings.ini.put("CreateChangelog", "OutputPath", pathToOutput.getText());
+                try {
+                    Settings.ini.store();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
 				command.append(" --output \""+ pathToOutput.getText()+"\"");
 			}
 			

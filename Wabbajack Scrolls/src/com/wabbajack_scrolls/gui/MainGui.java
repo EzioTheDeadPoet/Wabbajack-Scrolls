@@ -101,7 +101,8 @@ public class MainGui extends JFrame implements ActionListener {
 		
 		cleanDownloads.setActionCommand("cleanDownloads");
 		cleanDownloads.addActionListener(this);
-		userOperations.add(cleanDownloads);
+		//Disabled for now!
+//		userOperations.add(cleanDownloads);
 		
 		createChangelog.setActionCommand("createChangelog");
 		createChangelog.addActionListener(this);

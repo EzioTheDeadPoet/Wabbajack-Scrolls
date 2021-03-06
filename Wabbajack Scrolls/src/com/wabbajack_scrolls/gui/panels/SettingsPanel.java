@@ -90,6 +90,11 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
         fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fc.setAcceptAllFileFilterUsed(false);
+        try {
+            fc.setCurrentDirectory(new File(((String)Settings.ini.get("Main","WabbajackPath"))).getParentFile());
+        } catch (Exception e) {
+        }
+
         
         selectWabbajack.addActionListener(this);
         saveSettings.addActionListener(this);

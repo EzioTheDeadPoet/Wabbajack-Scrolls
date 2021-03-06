@@ -41,8 +41,8 @@ public class Setup {
 		if (file.exists()){
 			try{
 				Settings.Init();
-				File testPath = new File(Settings.ini.get("Main", "WabbajackPath", String.class));
-				if ((Settings.ini.get("Main", "WabbajackPath", String.class)).equals("") || !testPath.exists()) {
+				File testPath = new File((String)Settings.ini.get("Main", "WabbajackPath"));
+				if (((String)Settings.ini.get("Main", "WabbajackPath")).equals("") || !testPath.exists()) {
 					return true;
 				}
 
