@@ -20,20 +20,13 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
     private final JLabel header;
     private final JLabel jLblPrevML;
     private static JTextField pathToOriginalModlist;
-    private final JButton selecPrevious;
+    private final JButton selectPrevious;
     private final JLabel jLblCurML;
     private static JTextField pathToCurrent;
     private final JButton selectCurrent;
     private final JLabel jLblOutputFile;
     private static JTextField pathToOutput;
     private final JButton selectOutput;
-    private final JComboBox<?> changesDownloads;
-    private final JLabel jLblsettings;
-    private final JLabel jLblDownloads;
-    private final JComboBox<?> changesMods;
-    private final JLabel jLblMods;
-    private final JComboBox<?> changesLoadorder;
-    private final JLabel jLblLO;
     private final JButton executeButton;
     
     
@@ -45,31 +38,31 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
     private static String outPath = "";
  	
 	public CreateChangelogPanel(){
-		
-        //construct preComponents
-        String[] changesDownloadsItems = {"Do", "Do not"};
-        String[] changesModsItems = {"Do not", "Do"};
-        String[] changesLoadorderItems = {"Do not", "Do"};
 
         //construct components
         header = new JLabel ("Generate a Changelog.");
         jLblPrevML = new JLabel ("Original/Previous Modlist : ");
         pathToOriginalModlist = new JTextField (5);
-        selecPrevious = new JButton ("Select in Explorer");
+        selectPrevious = new JButton ("Select in Explorer");
         jLblCurML = new JLabel ("Current/Updated Modlist :");
         pathToCurrent = new JTextField (5);
         selectCurrent = new JButton ("Select in Expolrer");
         jLblOutputFile = new JLabel ("Output File :");
         pathToOutput = new JTextField (5);
         selectOutput = new JButton ("Select in Exploer");
-        changesDownloads = new JComboBox<Object> (changesDownloadsItems);
-        jLblsettings = new JLabel ("Settings :");
-        jLblDownloads = new JLabel (" include download changes.");
-        changesMods = new JComboBox<Object> (changesModsItems);
-        jLblMods = new JLabel (" include mods changes.");
-        changesLoadorder = new JComboBox<Object> (changesLoadorderItems);
-        jLblLO = new JLabel (" include load order changes.");
+
         executeButton = new JButton ("Launch");
+
+        //set components properties
+        jLblPrevML.setToolTipText ("The .wabbajack file of an older version of the modlist.");
+        pathToOriginalModlist.setToolTipText ("The .wabbajack file of an older version of the modlist.");
+        selectPrevious.setToolTipText ("The .wabbajack file of an older version of the modlist.");
+        jLblCurML.setToolTipText ("The current .wabbajack of the modlist the changelog is for.");
+        pathToCurrent.setToolTipText ("The current .wabbajack of the modlist the changelog is for.");
+        selectCurrent.setToolTipText ("The current .wabbajack of the modlist the changelog is for.");
+        jLblOutputFile.setToolTipText ("The path to where you want the output changelog. The changelog is written in markdown format.");
+        pathToOutput.setToolTipText ("The path to where you want the output changelog. The changelog is written in markdown format.");
+        selectOutput.setToolTipText ("The path to where you want the output changelog. The changelog is written in markdown format.");
 
         //adjust size and set layout
         setPreferredSize (new Dimension (944, 655));
@@ -79,40 +72,26 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
         add (header);
         add (jLblPrevML);
         add (pathToOriginalModlist);
-        add (selecPrevious);
+        add (selectPrevious);
         add (jLblCurML);
         add (pathToCurrent);
         add (selectCurrent);
         add (jLblOutputFile);
         add (pathToOutput);
         add (selectOutput);
-        add (changesDownloads);
-        add (jLblsettings);
-        add (jLblDownloads);
-        add (changesMods);
-        add (jLblMods);
-        add (changesLoadorder);
-        add (jLblLO);
         add (executeButton);
 
         //set component bounds (only needed by Absolute Positioning)
         header.setBounds (25, 25, 235, 25);
         jLblPrevML.setBounds (25, 110, 200, 25);
         pathToOriginalModlist.setBounds (225, 110, 455, 25);
-        selecPrevious.setBounds (680, 110, 185, 25);
+        selectPrevious.setBounds (680, 110, 185, 25);
         jLblCurML.setBounds (25, 160, 200, 25);
         pathToCurrent.setBounds (225, 160, 455, 25);
         selectCurrent.setBounds (680, 160, 185, 25);
         jLblOutputFile.setBounds (25, 210, 200, 25);
         pathToOutput.setBounds (225, 210, 455, 25);
         selectOutput.setBounds (680, 210, 185, 25);
-        changesDownloads.setBounds (225, 330, 115, 25);
-        jLblsettings.setBounds (25, 330, 200, 25);
-        jLblDownloads.setBounds (340, 330, 430, 25);
-        changesMods.setBounds (225, 365, 115, 25);
-        jLblMods.setBounds (340, 365, 435, 25);
-        changesLoadorder.setBounds (225, 400, 115, 25);
-        jLblLO.setBounds (340, 400, 435, 25);
         executeButton.setBounds (760, 540, 120, 60);
 
         
@@ -143,7 +122,7 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
         } catch (Exception e) {
         }
 		
-		selecPrevious.addActionListener(this);
+		selectPrevious.addActionListener(this);
 		selectCurrent.addActionListener(this);
 		selectOutput.addActionListener(this);
         executeButton.addActionListener(this);
@@ -169,7 +148,7 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-        if (e.getSource() == selecPrevious) {
+        if (e.getSource() == selectPrevious) {
 
             try {
                 if (!prevPath.isBlank()) {
@@ -274,18 +253,7 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
                 }
 				command.append(" --output \""+ pathToOutput.getText()+"\"");
 			}
-			
-			if (changesDownloads.getSelectedItem().toString().equals("Do not")) {
-				command.append(" --changes-downloads false");
-			}
-			
-			if (changesMods.getSelectedItem().toString().equals("Do")) {
-				command.append(" --changes-mods true");
-			}
-			
-			if (changesLoadorder.getSelectedItem().toString().equals("Do")) {
-				command.append(" --changes-loadorder true");
-			}
+
 			CMD.run( command.toString());
 		}
 		
