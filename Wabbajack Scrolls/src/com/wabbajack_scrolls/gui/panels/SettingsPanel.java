@@ -57,6 +57,7 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
         jLblCliFolder.setToolTipText ("The folder named after the Wabbajack version number.");
         pathToWabbajack.setToolTipText ("The folder named after the Wabbajack version number.");
         selectWabbajack.setToolTipText ("The folder named after the Wabbajack version number.");
+        jCBTheme.setToolTipText("If you get visual glitches just restart.");
 
         //adjust size and set layout
         setPreferredSize (new Dimension (944, 655));

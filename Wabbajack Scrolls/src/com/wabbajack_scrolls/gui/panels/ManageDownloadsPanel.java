@@ -80,15 +80,15 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         executeButton = new JButton ("Launch");
 
         //set components properties
-        jLblDownloads.setToolTipText ("Input folder containing the downloads you want to move.");
-        pathToDownloads.setToolTipText ("Input folder containing the downloads you want to move.");
-        selectDownloads.setToolTipText ("Input folder containing the downloads you want to move.");
-        jLblOutput.setToolTipText ("Output folder the downloads should be transferred to");
-        pathToOutput.setToolTipText ("Output folder the downloads should be transferred to");
-        selectOutput.setToolTipText ("Output folder the downloads should be transferred to");
-        jLblModlistFile.setToolTipText ("The Modlist a .wabbajack file.");
-        pathToModlist.setToolTipText ("The Modlist a .wabbajack file.");
-        selectModlist.setToolTipText ("The Modlist a .wabbajack file.");
+        jLblDownloads.setToolTipText ("Input folder containing the list specific downloads you want to copy.");
+        pathToDownloads.setToolTipText ("Input folder containing the list specific downloads you want to copy.");
+        selectDownloads.setToolTipText ("Input folder containing the list specific downloads you want to copy.");
+        jLblOutput.setToolTipText ("Output folder the downloads should be copied to.");
+        pathToOutput.setToolTipText ("Output folder the downloads should be copied to.");
+        selectOutput.setToolTipText ("Output folder the downloads should be copied to.");
+        jLblModlistFile.setToolTipText ("The modlist as the .wabbajack file.");
+        pathToModlist.setToolTipText ("The modlist as the .wabbajack file.");
+        selectModlist.setToolTipText ("The modlist as the .wabbajack file.");
 //        jLblModsFolder.setToolTipText ("Mods folder location if the provided modlist file is an MO2 modlist.txt");
 //        pathToMods.setToolTipText ("Mods folder location if the provided modlist file is an MO2 modlist.txt");
 //        selectMods.setToolTipText ("Mods folder location if the provided modlist file is an MO2 modlist.txt");
