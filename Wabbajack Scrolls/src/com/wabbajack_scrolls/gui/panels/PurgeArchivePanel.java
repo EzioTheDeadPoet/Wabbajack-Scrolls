@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class PurgeArchivePanel extends JPanel {
 	
-	private JLabel startMesssage = new JLabel("Purge Archive GUI here.");
+	private final JLabel startMesssage = new JLabel("Purge Archive GUI here.");
 	
 	public PurgeArchivePanel() {
 		add(startMesssage);

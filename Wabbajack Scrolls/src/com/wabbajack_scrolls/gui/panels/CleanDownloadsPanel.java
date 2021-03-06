@@ -22,18 +22,18 @@ import com.wabbajack_scrolls.util.Settings;
 @SuppressWarnings("serial")
 public class CleanDownloadsPanel extends JPanel implements ActionListener{
 	
-    private JLabel header;
-    private JLabel jLblDownloads;
+    private final JLabel header;
+    private final JLabel jLblDownloads;
     private static JTextField pathToDownloads;
-    private JButton selectDownloads;
-    private JLabel jLblModlistFile;
+    private final JButton selectDownloads;
+    private final JLabel jLblModlistFile;
     private static JTextField pathToModlist;
-    private JButton selectModlist;
-    private JLabel jLblModsFolder;
+    private final JButton selectModlist;
+    private final JLabel jLblModsFolder;
     private static JTextField pathToMods;
-    private JButton selectMods;
-    private JLabel jLblModsNote;
-    private JButton executeButton;
+    private final JButton selectMods;
+    private final JLabel jLblModsNote;
+    private final JButton executeButton;
     
     //Code related
     public static JFileChooser fcdir;
@@ -121,11 +121,8 @@ public class CleanDownloadsPanel extends JPanel implements ActionListener{
 			
 			@Override
 			public boolean accept(File f) {
-				if (f.getName().equals("modlist.txt")||f.isDirectory()) {
-					return true;
-				}
-				return false;
-			}
+                return f.getName().equals("modlist.txt") || f.isDirectory();
+            }
 		};
 		
 		fcfile.addChoosableFileFilter(wabbajackModlist);
@@ -140,7 +137,7 @@ public class CleanDownloadsPanel extends JPanel implements ActionListener{
 	}
 	
 	public static void init() {
-		pathToDownloads.setText((String) Settings.ini.get("ManageDownloads","DownloadsPath"));
+		pathToDownloads.setText(Settings.ini.get("ManageDownloads","DownloadsPath"));
 		
 	}
 	

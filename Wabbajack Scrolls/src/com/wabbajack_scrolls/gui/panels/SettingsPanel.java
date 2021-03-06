@@ -22,13 +22,13 @@ import com.wabbajack_scrolls.util.ThemeSetter;
 
 public class SettingsPanel extends JPanel implements ActionListener,ItemListener{
 	
-    private JLabel header;
-    private JLabel jLblCliFolder;
+    private final JLabel header;
+    private final JLabel jLblCliFolder;
     private static JLabel jLblSettingsSaved;
     private static JTextField pathToWabbajack;
-    private JButton selectWabbajack;
-    private JButton saveSettings;
-    private JLabel jLblTheme;
+    private final JButton selectWabbajack;
+    private final JButton saveSettings;
+    private final JLabel jLblTheme;
     public static JComboBox<?> jCBTheme;
     
     //Code related
@@ -90,6 +90,11 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
         fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fc.setAcceptAllFileFilterUsed(false);
+        try {
+            fc.setCurrentDirectory(new File(((String)Settings.ini.get("Main","WabbajackPath"))).getParentFile());
+        } catch (Exception e) {
+        }
+
         
         selectWabbajack.addActionListener(this);
         saveSettings.addActionListener(this);
@@ -99,7 +104,7 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
 	
 	public static void init() {
 	    try{
-            pathToWabbajack.setText((String) Settings.ini.get("Main","WabbajackPath"));
+            pathToWabbajack.setText(Settings.ini.get("Main","WabbajackPath"));
         } catch (NullPointerException e) {
 	        pathToWabbajack.setText("");
         }
@@ -140,7 +145,7 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 	    if (e.getStateChange() == ItemEvent.SELECTED) {
-	    	Settings.ini.put("Main", "Theme", (String)jCBTheme.getSelectedItem());
+	    	Settings.ini.put("Main", "Theme", jCBTheme.getSelectedItem());
 		    try {
 		    	Settings.ini.store();
                 ThemeSetter.set();
