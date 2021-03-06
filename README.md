@@ -1,2 +1,3 @@
 # Wabbajack-Scrolls
-A WIP GUI for the WJ-CLI
+
+This is a small GUI for users to use some CLI functions of Wabbajack in a more user friendly way.
