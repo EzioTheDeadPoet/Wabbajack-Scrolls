@@ -194,8 +194,8 @@ public class CleanDownloadsPanel extends JPanel implements ActionListener{
         }
 		
         if (e.getSource() == executeButton) {
-			String debugFront = "echo \"wabbajack-cli ";
-			String debugEnd = "\"";
+//			String debugFront = "echo \"wabbajack-cli ";
+//			String debugEnd = "\"";
 			
 			StringBuffer command = new StringBuffer();
 			command.append("change-donwloads");

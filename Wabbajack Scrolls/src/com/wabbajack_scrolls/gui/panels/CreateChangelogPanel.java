@@ -85,13 +85,13 @@ public class CreateChangelogPanel extends JPanel implements ActionListener{
         header.setBounds (25, 25, 235, 25);
         jLblPrevML.setBounds (25, 110, 200, 25);
         pathToOriginalModlist.setBounds (225, 110, 455, 25);
-        selectPrevious.setBounds (680, 110, 185, 25);
+        selectPrevious.setBounds (680, 110, 140, 25);
         jLblCurML.setBounds (25, 160, 200, 25);
         pathToCurrent.setBounds (225, 160, 455, 25);
-        selectCurrent.setBounds (680, 160, 185, 25);
+        selectCurrent.setBounds (680, 160, 140, 25);
         jLblOutputFile.setBounds (25, 210, 200, 25);
         pathToOutput.setBounds (225, 210, 455, 25);
-        selectOutput.setBounds (680, 210, 185, 25);
+        selectOutput.setBounds (680, 210, 140, 25);
         executeButton.setBounds (760, 540, 120, 60);
 
         
