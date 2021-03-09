@@ -20,6 +20,7 @@ import com.wabbajack_scrolls.util.Settings;
 import com.wabbajack_scrolls.GUI;
 import com.wabbajack_scrolls.util.ThemeSetter;
 
+@SuppressWarnings("serial")
 public class SettingsPanel extends JPanel implements ActionListener,ItemListener{
 	
     private final JLabel header;
@@ -77,7 +78,7 @@ public class SettingsPanel extends JPanel implements ActionListener,ItemListener
         header.setBounds (25, 25, 230, 25);
         jLblCliFolder.setBounds (25, 110, 200, 25);
         pathToWabbajack.setBounds (225, 110, 455, 25);
-        selectWabbajack.setBounds (680, 110, 190, 25);
+        selectWabbajack.setBounds (680, 110, 140, 25);
         saveSettings.setBounds (760, 540, 120, 60);
         jLblSettingsSaved.setBounds (225, 135, 645, 25);
         jLblTheme.setBounds (25, 160, 200, 25);

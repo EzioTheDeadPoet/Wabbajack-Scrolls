@@ -124,14 +124,14 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
         //set component bounds (only needed by Absolute Positioning)
         header.setBounds (25, 25, 660, 25);
         jLblDownloads.setBounds (25, 110, 200, 25);
-        pathToDownloads.setBounds (225, 110, 460, 25);
-        selectDownloads.setBounds (685, 110, 180, 25);
+        pathToDownloads.setBounds (225, 110, 455, 25);
+        selectDownloads.setBounds (680, 110, 140, 25);
         jLblOutput.setBounds (25, 160, 200, 25);
-        pathToOutput.setBounds (225, 160, 460, 25);
-        selectOutput.setBounds (685, 160, 180, 25);
+        pathToOutput.setBounds (225, 160, 455, 25);
+        selectOutput.setBounds (680, 160, 140, 25);
         jLblModlistFile.setBounds (25, 210, 200, 25);
-        pathToModlist.setBounds (225, 210, 460, 25);
-        selectModlist.setBounds (685, 210, 180, 25);
+        pathToModlist.setBounds (225, 210, 455, 25);
+        selectModlist.setBounds (680, 210, 140, 25);
 //        jLblModsFolder.setBounds (25, 260, 200, 25);
 //        pathToMods.setBounds (225, 260, 460, 25);
 //        selectMods.setBounds (685, 260, 180, 25);

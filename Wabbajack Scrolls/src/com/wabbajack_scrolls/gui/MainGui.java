@@ -11,7 +11,6 @@ import javax.swing.*;
 import com.wabbajack_scrolls.GUI;
 import com.wabbajack_scrolls.gui.panels.*;
 import com.wabbajack_scrolls.util.ApiKey;
-import com.wabbajack_scrolls.util.Settings;
 import com.wabbajack_scrolls.util.Setup;
 
 
@@ -39,8 +38,6 @@ public class MainGui extends JFrame implements ActionListener {
 	
 	
 	private final JMenu settingsMenu = new JMenu("Settings");
-	
-	private final JMenuItem settings = new JMenuItem("Settings");
 	
 	//Initializing all used Panels
 	
@@ -126,12 +123,6 @@ public class MainGui extends JFrame implements ActionListener {
 		purgeArchive.addActionListener(this);
 		authorOperations.add(purgeArchive);
 		
-		//Top Menu Settigns
-		
-		settings.setActionCommand("settings");
-		settings.addActionListener(this);
-		settingsMenu.add(settings);
-		
 		//Add menus to menubar
 		
 		menubar.add(userOperations);
@@ -139,6 +130,10 @@ public class MainGui extends JFrame implements ActionListener {
 			menubar.add(authorOperations);
 		}
 		menubar.add(settingsMenu);
+		
+		JMenuItem settings = new JMenuItem("Settings");
+		settings.setActionCommand("settings");
+		settingsMenu.add(settings);
 		
 		//Add cards to the mainPanel
 		
@@ -179,14 +174,9 @@ public class MainGui extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 			CardLayout mainLayout = (CardLayout)(mainPanel.getLayout());
 			mainLayout.show(mainPanel, e.getActionCommand());
-			if (e.getSource() == settings) {
-				SettingsPanel.jCBTheme.setSelectedItem(Settings.ini.get("Main","Theme", String.class));
-				SettingsPanel.init();
-			}
 			if (e.getSource() == manageDownloads) {
 				ManageDownloadsPanel.init();
 			}
 			return;
 	}
-
 }
