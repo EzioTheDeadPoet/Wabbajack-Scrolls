@@ -325,6 +325,10 @@ public class ManageDownloadsPanel extends JPanel implements ActionListener{
 //                pathToMods.setText("missing input");
 //            }
 
+            if (copyOrMove.getSelectedItem().toString().equals("Copy")) {
+                command.append(" --copy");
+            }
+
             if (copyOrMove.getSelectedItem().toString().equals("Move")) {
                 command.append(" --move");
             }
